@@ -72,10 +72,6 @@ public class ObservableConcurrentQueue<T> :
     /// </exception>
     public void Clear()
     {
-        if (IsDisposed)
-        {
-            return;
-        }
         if (IsReadOnly)
         {
             throw ReadOnlyException(nameof(Clear));
@@ -131,10 +127,6 @@ public class ObservableConcurrentQueue<T> :
     /// </exception>
     public void Enqueue(T item)
     {
-        if (IsDisposed)
-        {
-            return;
-        }
         if (IsReadOnly)
         {
             throw ReadOnlyException(nameof(Enqueue));
@@ -157,10 +149,6 @@ public class ObservableConcurrentQueue<T> :
     /// </exception>
     public void EnqueueRange(T[] items)
     {
-        if (IsDisposed)
-        {
-            return;
-        }
         if (IsReadOnly)
         {
             throw ReadOnlyException(nameof(EnqueueRange));
@@ -195,10 +183,6 @@ public class ObservableConcurrentQueue<T> :
     /// </exception>
     public void EnqueueRange(T[] items, int startIndex, int count)
     {
-        if (IsDisposed)
-        {
-            return;
-        }
         if (IsReadOnly)
         {
             throw ReadOnlyException(nameof(EnqueueRange));
@@ -267,11 +251,6 @@ public class ObservableConcurrentQueue<T> :
     /// </summary>
     public void TrimExcess()
     {
-        if (IsDisposed)
-        {
-            return;
-        }
-
         Items.TrimExcess();
     }
 
@@ -492,7 +471,7 @@ public class ObservableConcurrentQueue<T> :
 
 #endregion
 
-#region Helper Classes
+    #region Helper Classes
 
     /// <summary>
     /// Enumerates the elements of a <see cref="ObservableConcurrentQueue{T}"/>.

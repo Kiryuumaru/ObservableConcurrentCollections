@@ -824,33 +824,6 @@ public class MoveTest
     }
 }
 
-public class ObservableFilterTest
-{
-    [Fact]
-    public void Normal()
-    {
-        var col = new ObservableConcurrentCollection<int>(new int[] { 1, 2, 3, 4 });
-        var col2 = col.ObservableFilter(i => i % 2 == 0);
-
-        Assert.Equal(2, col2.Count);
-
-        Assert.Collection(col2,
-            i => Assert.Equal(2, i),
-            i => Assert.Equal(4, i));
-    }
-
-    [Fact]
-    public void Throws()
-    {
-        var col = new ObservableConcurrentCollection<int>(new int[] { 1, 2, 3, 4 });
-        var col2 = col.ObservableFilter(i => i % 2 == 0);
-
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        Assert.Throws<ArgumentNullException>(() => col2.ObservableFilter(null));
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-    }
-}
-
 public class RemoveTest
 {
     [Fact]

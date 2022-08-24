@@ -205,20 +205,15 @@ public abstract class ObservableCollectionSyncContext :
     /// </param>
     protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
-        if (IsDisposed)
-        {
-            return;
-        }
-
         UnsynchronizedCollectionChanged?.Invoke(this, e);
-        ContextPost(delegate
+        SyncOperation.ContextPost(delegate
         {
             SynchronizedCollectionChanged?.Invoke(this, e);
         });
 
         if (SynchronizeCollectionChangedEvent)
         {
-            ContextPost(delegate
+            SyncOperation.ContextPost(delegate
             {
                 CollectionChanged?.Invoke(this, e);
             });
@@ -227,18 +222,6 @@ public abstract class ObservableCollectionSyncContext :
         {
             CollectionChanged?.Invoke(this, e);
         }
-    }
-
-    /// <inheritdoc/>
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            CollectionChanged = null;
-            SynchronizedCollectionChanged = null;
-            UnsynchronizedCollectionChanged = null;
-        }
-        base.Dispose(disposing);
     }
 
     #endregion

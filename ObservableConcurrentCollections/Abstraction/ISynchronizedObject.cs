@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using LockerHelpers;
+using ObservableConcurrentCollections.Utilities;
+using System.ComponentModel;
+using System.Threading;
 
 namespace ObservableConcurrentCollections.Abstraction;
 
@@ -17,4 +20,14 @@ public interface ISynchronizedObject :
     /// Event raised when a property is changed directly on the executing thread.
     /// </summary>
     event PropertyChangedEventHandler UnsynchronizedPropertyChanged;
+
+    /// <summary>
+    /// Gets the <see cref="Utilities.SyncOperation"/> of the object.
+    /// </summary>
+    SyncOperation SyncOperation { get; }
+
+    /// <summary>
+    /// Gets the read-write lock for concurrency.
+    /// </summary>
+    RWLock RWLock { get; }
 }

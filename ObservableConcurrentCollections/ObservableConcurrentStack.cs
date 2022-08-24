@@ -473,7 +473,7 @@ public class ObservableConcurrentStack<T> :
 
 #endregion
 
-#region Helper Classes
+    #region Helper Classes
 
     /// <summary>
     /// Enumerates the elements of a <see cref="ObservableConcurrentStack{T}"/>.

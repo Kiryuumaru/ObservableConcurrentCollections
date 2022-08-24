@@ -1762,16 +1762,16 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
     /// </summary>
     public class DictionaryObservables<T> : ObservableConcurrentCollection<T>
     {
-#region Initializers
+        #region Initializers
 
         internal DictionaryObservables()
         {
             IsReadOnly = true;
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
 
 #if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
@@ -1836,7 +1836,7 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
             SetItemObservableInvoke(index, item, originalItem);
         }
 
-#endregion
+        #endregion
     }
 
     /// <summary>
@@ -1844,14 +1844,14 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
     /// </summary>
     public class DictionaryKeys : DictionaryObservables<TKey>
     {
-#region Initializers
+        #region Initializers
 
         internal DictionaryKeys()
         {
             IsReadOnly = true;
         }
 
-#endregion
+        #endregion
     }
 
     /// <summary>
@@ -1859,14 +1859,14 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
     /// </summary>
     public class DictionaryValues : DictionaryObservables<TValue>
     {
-#region Initializers
+        #region Initializers
 
         internal DictionaryValues()
         {
             IsReadOnly = true;
         }
 
-#endregion
+        #endregion
     }
 
     /// <summary>
@@ -1874,7 +1874,7 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
     /// </summary>
     public struct DictionaryEnumerator : IEnumerator<KeyValuePair<TKey, TValue>>, IDictionaryEnumerator
     {
-#region Properties
+        #region Properties
 
         /// <inheritdoc/>
         public KeyValuePair<TKey, TValue> Current => enumerator.Current;
@@ -1890,18 +1890,18 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
 
         private readonly IEnumerator<KeyValuePair<TKey, TValue>> enumerator;
 
-#endregion
+        #endregion
 
-#region Initializers
+        #region Initializers
 
         internal DictionaryEnumerator(ObservableConcurrentDictionary<TKey, TValue> dictionary)
         {
             enumerator = dictionary.Items.GetEnumerator();
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <inheritdoc/>
         public void Dispose() => enumerator.Dispose();
@@ -1912,14 +1912,14 @@ public class ObservableConcurrentDictionary<TKey, TValue> :
         /// <inheritdoc/>
         public void Reset() => enumerator.Reset();
 
-#endregion
+        #endregion
 
-#region IEnumerator Members
+        #region IEnumerator Members
 
         object IEnumerator.Current => enumerator.Current;
 
-#endregion
+        #endregion
     }
 
-#endregion
+    #endregion
 }

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Threading;
-using SynchronizationContextHelpers;
 using LockerHelpers;
 using ObservableConcurrentCollections.Abstraction;
 
@@ -10,15 +9,15 @@ namespace ObservableConcurrentCollections.Utilities;
 /// Contains all implementations for performing observable operations.
 /// </summary>
 public abstract class ObservableSyncContext :
-    SyncContext,
     ISynchronizedObject
 {
     #region Properties
 
-    /// <summary>
-    /// Gets the read-write lock for concurrency.
-    /// </summary>
+    /// <inheritdoc/>
     public RWLock RWLock { get; } = new RWLock(LockRecursionPolicy.SupportsRecursion);
+
+    /// <inheritdoc/>
+    public SyncOperation SyncOperation { get; } = new SyncOperation();
 
     #endregion
 
@@ -61,20 +60,15 @@ public abstract class ObservableSyncContext :
     /// </param>
     protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
     {
-        if (IsDisposed)
-        {
-            return;
-        }
-
         UnsynchronizedPropertyChanged?.Invoke(this, args);
-        ContextPost(delegate
+        SyncOperation.ContextPost(delegate
         {
             SynchronizedPropertyChanged?.Invoke(this, args);
         });
 
         if (SynchronizePropertyChangedEvent)
         {
-            ContextPost(delegate
+            SyncOperation.ContextPost(delegate
             {
                 PropertyChanged?.Invoke(this, args);
             });
@@ -83,18 +77,6 @@ public abstract class ObservableSyncContext :
         {
             PropertyChanged?.Invoke(this, args);
         }
-    }
-
-    /// <inheritdoc/>
-    protected override void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            PropertyChanged = null;
-            SynchronizedPropertyChanged = null;
-            UnsynchronizedPropertyChanged = null;
-        }
-        base.Dispose(disposing);
     }
 
     #endregion

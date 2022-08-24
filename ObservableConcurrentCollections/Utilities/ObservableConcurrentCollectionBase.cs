@@ -1,5 +1,4 @@
-﻿using SynchronizationContextHelpers;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -244,49 +243,6 @@ public abstract class ObservableConcurrentCollectionBase<T> :
     }
 
     /// <summary>
-    /// Creates an observable filter that shadows the changes notifications from the parent observable.
-    /// </summary>
-    /// <param name="predicate">
-    /// The predicate filter for child observable.
-    /// </param>
-    /// <returns>
-    /// The created child filter read-only observable.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// <paramref name="predicate"/> is a null reference.
-    /// </exception>
-    public ObservableCollectionBaseFilter ObservableFilter(Predicate<T> predicate)
-    {
-        if (predicate == null)
-        {
-            throw new ArgumentNullException(nameof(predicate));
-        }
-
-        ObservableCollectionBaseFilter filter = RWLock.LockRead(() =>
-        {
-            filter = new ObservableCollectionBaseFilter(Items.Where(i => predicate.Invoke(i)));
-            filter.SyncOperation.SetContext(this);
-            return filter;
-        });
-
-        void Filter_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        {
-            filter.RWLock.LockWrite(() =>
-            {
-                filter.Items = Items.Where(i => predicate.Invoke(i)).ToList();
-                filter.RWLock.InvokeOnLockExit(() => filter.OnCollectionReset());
-            });
-        }
-
-        CollectionChanged += Filter_CollectionChanged;
-        filter.Disposing += (s, e) =>
-        {
-            CollectionChanged -= Filter_CollectionChanged;
-        };
-        return filter;
-    }
-
-    /// <summary>
     /// Removes all elements from the <see cref="ObservableConcurrentCollectionBase{T}"/> and notify the observers.
     /// </summary>
     /// <param name="oldItems">
@@ -410,10 +366,6 @@ public abstract class ObservableConcurrentCollectionBase<T> :
             {
                 if (InternalInsertItems(index, new T[] { item }, out proxy))
                 {
-                    if (item is SyncContext sync)
-                    {
-                        sync.SyncOperation.SetContext(this);
-                    }
                     return true;
                 }
                 return false;
@@ -512,13 +464,6 @@ public abstract class ObservableConcurrentCollectionBase<T> :
             {
                 if (InternalInsertItems(index, items, out proxy))
                 {
-                    foreach (T item in items)
-                    {
-                        if (item is SyncContext sync)
-                        {
-                            sync.SyncOperation.SetContext(this);
-                        }
-                    }
                     return true;
                 }
                 return false;
@@ -925,10 +870,6 @@ public abstract class ObservableConcurrentCollectionBase<T> :
             {
                 if (InternalSetItem(index, item, out proxy))
                 {
-                    if (item is SyncContext sync)
-                    {
-                        sync.SyncOperation.SetContext(this);
-                    }
                     return true;
                 }
                 return false;
@@ -1175,22 +1116,6 @@ public abstract class ObservableConcurrentCollectionBase<T> :
     #region IEnumerable Members
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-    #endregion
-
-    #region Helper Classes
-
-    /// <summary>
-    /// Provides a filter observable collection from <see cref="ObservableConcurrentCollectionBase{T}"/> used for data binding.
-    /// </summary>
-    public class ObservableCollectionBaseFilter : ObservableConcurrentCollectionBase<T>
-    {
-        internal ObservableCollectionBaseFilter(IEnumerable<T> initialItems)
-            : base(_ => initialItems.ToList())
-        {
-
-        }
-    }
 
     #endregion
 }
