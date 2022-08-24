@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0;net6.0;</TargetFrameworks>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Authors>Kiryuumaru</Authors>
+    <Company>Kiryuumaru</Company>
+    <Copyright>Kiryuumaru</Copyright>
+    <Description>Observable concurrent collection helpers with short-and-easy and UI-safe property implementations. Can be used for any MVVM software architectural applications.</Description>
+    <PackageTags>MVVM, Observable, Concurrent, Collection, ObservableCollection, ConcurrentCollection, Model, Helper</PackageTags>
+    <PackageProjectUrl>https://github.com/Kiryuumaru/ObservableConcurrentCollections</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Kiryuumaru/ObservableConcurrentCollections</RepositoryUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LockerHelpers" Version="1.0.2" />
+    <PackageReference Include="SynchronizationContextHelpers" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
