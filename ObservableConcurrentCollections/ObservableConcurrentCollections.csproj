@@ -17,8 +17,8 @@
     <RepositoryUrl>https://github.com/Kiryuumaru/ObservableConcurrentCollections</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageReleaseNotes>* Initial release</PackageReleaseNotes>
-    <Version>1.0.0</Version>
+    <PackageReleaseNotes>* Updated dependencies</PackageReleaseNotes>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +28,7 @@
 
   <ItemGroup>
     <PackageReference Include="LockerHelpers" Version="1.0.2" />
-    <PackageReference Include="SynchronizationContextHelpers" Version="1.0.2" />
+    <PackageReference Include="SynchronizationContextHelpers" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
