@@ -480,25 +480,25 @@ public class ObservableConcurrentStack<T> :
     /// </summary>
     public struct StackEnumerator : IEnumerator<T>
     {
-#region Properties
+        #region Properties
 
         /// <inheritdoc/>
         public T Current => enumerator.Current;
 
         private readonly IEnumerator<T> enumerator;
 
-#endregion
+        #endregion
 
-#region Initializers
+        #region Initializers
 
         internal StackEnumerator(ObservableConcurrentStack<T> stack)
         {
             enumerator = stack.Items.GetEnumerator();
         }
 
-#endregion
+        #endregion
 
-#region Methods
+        #region Methods
 
         /// <inheritdoc/>
         public bool MoveNext() => enumerator.MoveNext();
@@ -509,14 +509,14 @@ public class ObservableConcurrentStack<T> :
         /// <inheritdoc/>
         public void Dispose() => enumerator.Dispose();
 
-#endregion
+        #endregion
 
-#region IEnumerator Members
+        #region IEnumerator Members
 
         object? IEnumerator.Current => enumerator.Current;
 
-#endregion
+        #endregion
     }
 
-#endregion
+    #endregion
 }

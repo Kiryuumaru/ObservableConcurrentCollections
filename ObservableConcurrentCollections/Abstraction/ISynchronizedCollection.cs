@@ -1,5 +1,4 @@
 ﻿using System.Collections.Specialized;
-using System.ComponentModel;
 
 namespace ObservableConcurrentCollections.Abstraction;
 

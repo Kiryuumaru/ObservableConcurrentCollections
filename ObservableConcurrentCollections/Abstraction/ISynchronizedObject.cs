@@ -1,7 +1,6 @@
 ﻿using LockerHelpers;
 using ObservableConcurrentCollections.Utilities;
 using System.ComponentModel;
-using System.Threading;
 
 namespace ObservableConcurrentCollections.Abstraction;
 

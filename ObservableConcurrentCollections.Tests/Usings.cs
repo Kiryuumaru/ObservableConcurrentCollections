@@ -1,4 +1,2 @@
 global using Xunit;
 global using ObservableConcurrentCollections;
-global using ObservableConcurrentCollections.Abstraction;
-global using ObservableConcurrentCollections.Utilities;
