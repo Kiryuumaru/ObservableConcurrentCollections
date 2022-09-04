@@ -1,4 +1,6 @@
-# Observable Helpers
+This repository is deprecated and all the features have been moved to the [ObservableHelpers](https://github.com/Kiryuumaru/ObservableHelpers).
+
+# ObservableConcurrentCollections
 
 Observable concurrent collection helpers with UI-safe property implementations. Can be used for any MVVM software architectural applications.
 
